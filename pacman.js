@@ -49,6 +49,7 @@ let lives = 3;
 let gameOver = false;
 
 window.onload = function() {
+    console.log("game loaded");
     board = document.getElementById("board");
     board.height = boardHeight;
     board.width = boardWidth;
@@ -374,5 +375,3 @@ function checkOrientation() {
 
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
-
-checkOrientation();
