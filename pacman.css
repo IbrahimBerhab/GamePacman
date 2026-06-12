@@ -1,27 +1,24 @@
-body {
-    text-align: center;
-    overflow: hidden;
-    
-}
-
-#board {
-    background-color: black;
-}
-
-#controls{
-    margin-top:15px;
+body{
     text-align:center;
+    margin:0;
+    background:black;
+}
+
+#board{
+    display:block;
+    margin:auto;
+}
+#controls{
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
 }
 
 #controls button{
-    width:70px;
-    height:70px;
-    font-size:30px;
-    margin:5px;
-    border:none;
-    border-radius:12px;
-    background:#444;
-    color:white;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
 }
 #rotateMessage{
     position:fixed;

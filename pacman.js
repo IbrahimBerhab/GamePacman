@@ -2,7 +2,9 @@
 let board;
 const rowCount = 18;
 const columnCount = 18;
-const tileSize = 32;
+const tileSize = Math.floor(
+    Math.min(window.innerWidth, window.innerHeight - 150) / 18
+);
 
 const boardWidth = columnCount * tileSize;
 const boardHeight = rowCount * tileSize;
@@ -141,6 +143,7 @@ window.onload = function() {
     });
     window.addEventListener("resize", checkOrientation);
     window.addEventListener("orientationchange", checkOrientation);
+    checkOrientation();
 }
 function loadImages() {
     wallImage = new Image();
