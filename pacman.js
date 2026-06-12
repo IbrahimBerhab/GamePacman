@@ -17,7 +17,64 @@ let pacmanDownImage;
 let pacmanLeftImage;
 let pacmanRightImage;
 let wallImage;
+class Block {
+    constructor(image, x, y, width, height) {
+        this.image = image;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
 
+        this.startX = x;
+        this.startY = y;
+
+        this.direction = 'R';
+        this.velocityX = 0;
+        this.velocityY = 0;
+    }
+
+    updateDirection(direction) {
+        const prevDirection = this.direction;
+        this.direction = direction;
+        this.updateVelocity();
+        this.x += this.velocityX;
+        this.y += this.velocityY;
+        
+        for (let wall of walls.values()) {
+            if (collision(this, wall)) {
+                this.x -= this.velocityX;
+                this.y -= this.velocityY;
+                this.direction = prevDirection;
+                this.updateVelocity();
+                return;
+            }
+        }
+    }
+
+    updateVelocity() {
+        if (this.direction == 'U') {
+            this.velocityX = 0;
+            this.velocityY = -tileSize/4;
+        }
+        else if (this.direction == 'D') {
+            this.velocityX = 0;
+            this.velocityY = tileSize/4;
+        }
+        else if (this.direction == 'L') {
+            this.velocityX = -tileSize/4;
+            this.velocityY = 0;
+        }
+        else if (this.direction == 'R') {
+            this.velocityX = tileSize/4;
+            this.velocityY = 0;
+        }
+    }
+
+    reset() {
+        this.x = this.startX;
+        this.y = this.startY;
+    }
+};
 const tileMap = [
     "XXXXXXXXXXXXXXXXXX",
     "X                X",
@@ -85,9 +142,6 @@ window.onload = function() {
     window.addEventListener("resize", checkOrientation);
     window.addEventListener("orientationchange", checkOrientation);
 }
-
-checkOrientation();
-
 function loadImages() {
     wallImage = new Image();
     wallImage.src = "./wall.png";
@@ -303,65 +357,6 @@ function resetPositions() {
         ghost.updateDirection(newDirection);
     }
 }
-
-class Block {
-    constructor(image, x, y, width, height) {
-        this.image = image;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-
-        this.startX = x;
-        this.startY = y;
-
-        this.direction = 'R';
-        this.velocityX = 0;
-        this.velocityY = 0;
-    }
-
-    updateDirection(direction) {
-        const prevDirection = this.direction;
-        this.direction = direction;
-        this.updateVelocity();
-        this.x += this.velocityX;
-        this.y += this.velocityY;
-        
-        for (let wall of walls.values()) {
-            if (collision(this, wall)) {
-                this.x -= this.velocityX;
-                this.y -= this.velocityY;
-                this.direction = prevDirection;
-                this.updateVelocity();
-                return;
-            }
-        }
-    }
-
-    updateVelocity() {
-        if (this.direction == 'U') {
-            this.velocityX = 0;
-            this.velocityY = -tileSize/4;
-        }
-        else if (this.direction == 'D') {
-            this.velocityX = 0;
-            this.velocityY = tileSize/4;
-        }
-        else if (this.direction == 'L') {
-            this.velocityX = -tileSize/4;
-            this.velocityY = 0;
-        }
-        else if (this.direction == 'R') {
-            this.velocityX = tileSize/4;
-            this.velocityY = 0;
-        }
-    }
-
-    reset() {
-        this.x = this.startX;
-        this.y = this.startY;
-    }
-};
 
 function checkOrientation() {
     const msg = document.getElementById("rotateMessage");
