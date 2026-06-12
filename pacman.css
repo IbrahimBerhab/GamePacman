@@ -38,3 +38,8 @@ body {
     font-size:30px;
     z-index:9999;
 }
+#board{
+    max-width:100%;
+    height:auto;
+    background:black;
+}

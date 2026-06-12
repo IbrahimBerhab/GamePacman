@@ -62,7 +62,30 @@ window.onload = function() {
     }
     update();
     document.addEventListener("keyup", movePacman);
+    document.getElementById("up").addEventListener("touchstart", () => {
+        pacman.updateDirection('U');
+        pacman.image = pacmanUpImage;
+    });
+
+    document.getElementById("down").addEventListener("touchstart", () => {
+        pacman.updateDirection('D');
+        pacman.image = pacmanDownImage;
+    });
+
+    document.getElementById("left").addEventListener("touchstart", () => {
+        pacman.updateDirection('L');
+        pacman.image = pacmanLeftImage;
+    });
+
+    document.getElementById("right").addEventListener("touchstart", () => {
+        pacman.updateDirection('R');
+        pacman.image = pacmanRightImage;
+    });
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
 }
+
+checkOrientation();
 
 function loadImages() {
     wallImage = new Image();
@@ -338,25 +361,6 @@ class Block {
         this.y = this.startY;
     }
 };
-document.getElementById("up").addEventListener("touchstart", () => {
-    pacman.updateDirection('U');
-    pacman.image = pacmanUpImage;
-});
-
-document.getElementById("down").addEventListener("touchstart", () => {
-    pacman.updateDirection('D');
-    pacman.image = pacmanDownImage;
-});
-
-document.getElementById("left").addEventListener("touchstart", () => {
-    pacman.updateDirection('L');
-    pacman.image = pacmanLeftImage;
-});
-
-document.getElementById("right").addEventListener("touchstart", () => {
-    pacman.updateDirection('R');
-    pacman.image = pacmanRightImage;
-});
 
 function checkOrientation() {
     const msg = document.getElementById("rotateMessage");
