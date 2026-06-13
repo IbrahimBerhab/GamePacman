@@ -1,42 +1,48 @@
-body{
-    text-align:center;
-    margin:0;
-    background:black;
+body {
+    margin: 0;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
 }
 
-#board{
+/* منطقة الخريطة */
+#board {
     display:block;
     margin:auto;
-}
-#controls{
-    position: fixed;
-    bottom: 10px;
-    left: 0;
-    width: 100%;
+    background:black;
 }
 
-#controls button{
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-}
-#rotateMessage{
+/* أزرار التحكم */
+#controls{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:black;
-    color:white;
-    display:none;
-    justify-content:center;
+    bottom:10px;
+    left:10px;
+    width:150px;
+
+    display:flex;
+    flex-direction:column;
     align-items:center;
-    text-align:center;
-    font-size:30px;
-    z-index:9999;
+    gap:5px;
 }
-#board{
-    max-width:100%;
-    height:auto;
-    background:black;
+
+/* أزرار أصغر */
+#controls button {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+}
+
+/* رسالة الدوران */
+#rotateMessage {
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    z-index: 9999;
 }

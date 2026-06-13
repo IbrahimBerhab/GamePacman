@@ -2,12 +2,27 @@
 let board;
 const rowCount = 18;
 const columnCount = 18;
-const tileSize = Math.floor(
-    Math.min(window.innerWidth, window.innerHeight - 150) / 18
-);
+let tileSize;
+let boardWidth;
+let boardHeight;
 
-const boardWidth = columnCount * tileSize;
-const boardHeight = rowCount * tileSize;
+function resizeBoard() {
+
+    const controlsSpace = 160;
+
+    tileSize = Math.floor(
+        Math.min(
+            window.innerWidth / columnCount,
+            (window.innerHeight - controlsSpace) / rowCount
+        )
+    );
+
+    boardWidth = columnCount * tileSize;
+    boardHeight = rowCount * tileSize;
+
+    board.width = boardWidth;
+    board.height = boardHeight;
+}
 let context;
 
 let blueGhostImage;
@@ -113,7 +128,7 @@ window.onload = function() {
     board.height = boardHeight;
     board.width = boardWidth;
     context = board.getContext("2d"); 
-
+    resizeBoard();
     loadImages();
     loadMap();
     for (let ghost of ghosts.values()) {
@@ -366,10 +381,18 @@ function checkOrientation() {
 
     if (window.innerHeight > window.innerWidth) {
         msg.style.display = "flex";
+        board.style.display = "none";
+        controls.style.display = "none";
     } else {
         msg.style.display = "none";
+        board.style.display = "block";
+        controls.style.display = "flex";
     }
 }
 
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
+window.addEventListener("resize", () => {
+    resizeBoard();
+    loadMap();
+});
