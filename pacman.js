@@ -8,12 +8,13 @@ let boardHeight;
 
 function resizeBoard() {
 
-    const controlsSpace = 160;
+    const controlsHeight = 120;
 
     tileSize = Math.floor(
         Math.min(
-            window.innerWidth / columnCount,
-            (window.innerHeight - controlsSpace) / rowCount
+            window.innerHeight / 24, // يمنع تضخم الخريطة
+            (window.innerHeight - controlsHeight) / rowCount,
+            window.innerWidth / columnCount
         )
     );
 
@@ -377,16 +378,23 @@ function resetPositions() {
 }
 
 function checkOrientation() {
+
     const msg = document.getElementById("rotateMessage");
+    const controls = document.getElementById("controls");
 
     if (window.innerHeight > window.innerWidth) {
+
         msg.style.display = "flex";
         board.style.display = "none";
         controls.style.display = "none";
+
     } else {
+
         msg.style.display = "none";
         board.style.display = "block";
         controls.style.display = "flex";
+
+        resizeBoard();
     }
 }
 
